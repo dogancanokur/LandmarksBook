@@ -1,8 +1,11 @@
 package com.dogancanokur.landmarkbook;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -19,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView);
 
-        ArrayList<String> landmarkNames = new ArrayList<String>();
+        final ArrayList<String> landmarkNames = new ArrayList<String>();
         landmarkNames.add("Pisa");
         landmarkNames.add("Collesseum");
         landmarkNames.add("Eiffel");
@@ -35,13 +38,23 @@ public class MainActivity extends AppCompatActivity {
         Bitmap londonBridge = BitmapFactory.decodeResource(this.getResources(), R.drawable.londonbridge);
         Bitmap leadensTower = BitmapFactory.decodeResource(this.getResources(), R.drawable.leanderstower);
 
-        ArrayList<Bitmap> landmarksImages = new ArrayList<Bitmap>();
+        final ArrayList<Bitmap> landmarksImages = new ArrayList<Bitmap>();
         landmarksImages.add(pisa);
         landmarksImages.add(collesseum);
         landmarksImages.add(eiffel);
         landmarksImages.add(londonBridge);
         landmarksImages.add(leadensTower);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // position tıkladığımız pozisyon index 0 dan başlıyor array ile aynı
+                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                intent.putExtra("landmarkName",landmarkNames.get(position));
+//                intent.putExtra("landmarkPhoto",landmarksImages.get(position));
+                startActivity(intent);
+            }
+        });
 
     }
 }
