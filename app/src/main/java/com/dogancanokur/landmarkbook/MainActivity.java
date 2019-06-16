@@ -15,6 +15,13 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    //    //----------------
+//    // 1. yöntem
+//    static Bitmap selectedImage;
+//    // başka Classlardan erişmek için
+//    //----------------
+//    GlobalBitmap globals = new GlobalBitmap();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +57,22 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // position tıkladığımız pozisyon index 0 dan başlıyor array ile aynı
                 Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("landmarkName",landmarkNames.get(position));
-//                intent.putExtra("landmarkPhoto",landmarksImages.get(position));
+                intent.putExtra("landmarkName", landmarkNames.get(position));
+//                intent.putExtra("landmarkPhoto",landmarksImages.get(position)); // bu olmaz hafıza kaybı ve çalışmaz
+
+//                //---------------------
+//                // 1. yöntem ile -- sadece image değil başka veriler ile de çalışır
+//                selectedImage = landmarksImages.get(position);
+//                //---------------------
+
+                //---------------------
+                Bitmap bitmap = landmarksImages.get(position);
+
+                GlobalBitmap globalBitmap = GlobalBitmap.getInstance();
+                globalBitmap.setChoosenImage(bitmap);
+                //---------------------
+
+
                 startActivity(intent);
             }
         });
